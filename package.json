@@ -1,0 +1,33 @@
+{
+  "name": "react_manual_node-ssr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vite",
+    "buildVite": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "build:client": "esbuild src/main.jsx --bundle --outfile=dist/bundle.js --loader:.js=jsx",
+    "build:server": "esbuild server/server.jsx --bundle --outfile=build/server.js --platform=node",
+    "build": "npm run build:client && npm run build:server",
+    "start": "npm run build & node ./build/server.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "esbuild": "^0.21.5",
+    "express": "^4.19.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0"
+  }
+}
