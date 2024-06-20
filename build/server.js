@@ -41692,13 +41692,14 @@ var require_follow_redirects = __commonJS({
 // server/server.jsx
 var import_path = __toESM(require("path"));
 var import_fs = __toESM(require("fs"));
-var import_react = __toESM(require_react());
+var import_react2 = __toESM(require_react());
 var import_server = __toESM(require_server_node());
 var import_express = __toESM(require_express2());
 
 // src/App.jsx
+var import_react = __toESM(require_react());
 function App(tasks) {
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, "Liste des t\xE2ches"), /* @__PURE__ */ React.createElement("ul", null, tasks.map((task) => /* @__PURE__ */ React.createElement("li", { key: task.id }, task.title)))));
+  return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h1", null, "Liste des t\xE2ches"), /* @__PURE__ */ import_react.default.createElement("ul", null, tasks.map((task) => /* @__PURE__ */ import_react.default.createElement("li", { key: task.id }, task.title)))));
 }
 var App_default = App;
 
@@ -44952,36 +44953,32 @@ var {
 
 // server/server.jsx
 var app = (0, import_express.default)();
-var PORT = process.env.PORT || 3e3;
+var PORT = 3e3;
 app.get("/", (req, res) => {
-  import_fs.default.readFile(
-    import_path.default.resolve(__dirname, "./index.html"),
-    "utf8",
-    async (err, data) => {
-      if (err) {
-        return res.status(500).send("An error occurred");
-      }
-      try {
-        const response = await axios_default.get(
-          "https://jsonplaceholder.typicode.com/todos"
-        );
-        return res.send(
-          data.replace(
-            '<div id="root"></div>',
-            `<div id="root">${import_server.default.renderToStaticMarkup(
-              /* @__PURE__ */ import_react.default.createElement(App_default, { tasks: response.data })
-            )}</div>`
-          )
-        );
-      } catch (error) {
-        res.status(500);
-        console.error(error);
-      }
+  import_fs.default.readFile(import_path.default.resolve("../index.html"), "utf8", async (err, data) => {
+    if (err) {
+      return res.status(500).send("An error occurred");
     }
-  );
+    try {
+      const response = await axios_default.get(
+        "https://jsonplaceholder.typicode.com/todos"
+      );
+      return res.send(
+        data.replace(
+          '<div id="root"></div>',
+          `<div id="root">${import_server.default.renderToStaticMarkup(
+            /* @__PURE__ */ import_react2.default.createElement(App_default, { tasks: response.data })
+          )}</div>`
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("An error occured");
+    }
+  });
 });
 app.use(
-  import_express.default.static(import_path.default.resolve(__dirname, "..", "dist"), { maxAge: "30d" })
+  import_express.default.static(import_path.default.resolve(__dirname, "..", "build"), { maxAge: "30d" })
 );
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
